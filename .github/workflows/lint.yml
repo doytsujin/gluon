@@ -27,3 +27,15 @@ jobs:
         run: ln -s ./docs/site-example ./site
       - name: Lint shell code
         run: make lint-sh
+
+  editorconfig:
+    name: Editorconfig
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: fetch image
+        run: docker pull mstruebing/editorconfig-checker
+      - name: Install example site
+        run: ln -s ./docs/site-example ./site
+      - name: editorconfig check
+        run: docker run --volume="$PWD":/check mstruebing/editorconfig-checker ec
